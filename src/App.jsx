@@ -17,7 +17,6 @@ import NotFound from './components/NotFound';
 import StickyMobileCTA from './components/StickyMobileCTA';
 import { Toaster } from './components/ui/sonner';
 import './App.css';
-import DeveloperBadge from './components/DeveloperBadge';
 import { RouterProvider, useRouter } from './lib/router';
 import { useDocumentHead } from './lib/seo';
 
@@ -37,7 +36,6 @@ const HomePage = () => {
       <Testimonials />
       <FAQ />
       <Contact />
-      <DeveloperBadge />
     </>
   );
 };
