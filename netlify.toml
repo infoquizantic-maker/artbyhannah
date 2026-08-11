@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Single-page-app fallback: without this, Netlify returns a real 404 for any
+# URL that isn't a physical file — which is exactly why /admin worked on
+# localhost (Vite's dev server does this automatically) but 404'd on Netlify.
+#
+# NOTE on true HTTP 404 status: because /art/:id pages are generated
+# dynamically from Supabase (not known at build/deploy time), Netlify itself
+# can't tell a valid deep link from a typo — so this catch-all must stay a
+# 200. The branded 404 experience for genuinely unknown routes is instead
+# handled client-side (src/components/NotFound.jsx), which also sets
+# <meta name="robots" content="noindex"> so search engines don't index it
+# despite the 200 status. public/404.html is kept as a best-effort static
+# fallback for any request that reaches Netlify before this rule applies.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

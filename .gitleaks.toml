@@ -1,0 +1,26 @@
+# gitleaks config for ART by Hannaah
+# Run manually:   gitleaks detect --source . --verbose
+# Or install as a pre-commit hook (see PATCH_NOTES.md, section "Secret scanner").
+#
+# This extends gitleaks' default, well-maintained rule set (AWS keys, generic
+# API keys/secrets, private key blocks, etc.) rather than reinventing it.
+
+title = "ART by Hannaah gitleaks config"
+
+[extend]
+useDefault = true
+
+# Reduce false positives on the two values that are *meant* to be public in
+# this app's architecture — the Supabase anon key and the EmailJS public key
+# are both safe to ship client-side (see SECURITY_AUDIT.md §1.2). Everything
+# else (service_role key, any future secret) is still caught by the default
+# rule set.
+[allowlist]
+  description = "Known-public client-side keys"
+  regexes = [
+    '''VITE_SUPABASE_ANON_KEY''',
+    '''VITE_EMAILJS_PUBLIC_KEY''',
+  ]
+  paths = [
+    '''\.env\.example$''',
+  ]

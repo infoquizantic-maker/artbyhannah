@@ -1,0 +1,7 @@
+# https://www.artbyhannaah.com/robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+Sitemap: https://www.artbyhannaah.com/sitemap.xml
